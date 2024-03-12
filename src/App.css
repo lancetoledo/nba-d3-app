@@ -1,38 +1,42 @@
+/* App.css */
 .App {
   text-align: center;
+  font-family: 'Arial', sans-serif;
+  padding: 20px;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+h1 {
+  color: #333;
+  margin-bottom: 30px;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
-
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
+.selectors {
   display: flex;
-  flex-direction: column;
-  align-items: center;
   justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+  gap: 20px;
+  margin-bottom: 20px;
 }
 
-.App-link {
-  color: #61dafb;
+.PlayerSelector label {
+  display: block;
+  margin-bottom: 10px;
+  color: #555;
+  font-weight: bold;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+/* Additional styling for react-select might be required and can be targeted specifically */
+
+.comparison-container {
+  margin-top: 20px;
+  padding: 20px;
+  border-radius: 8px;
+  background-color: #f0f0f0;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
+
+.comparison-container p {
+  color: #444;
+  font-size: 18px;
+}
+
+@media (max

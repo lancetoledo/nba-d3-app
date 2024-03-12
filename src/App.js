@@ -14,14 +14,13 @@ function App() {
   return (
     <div className="App">
       <h1>NBA Player Stats Comparator</h1>
-      <PlayerSelector players={players} onChange={setSelectedPlayer1} label="Select Player 1" />
-      <PlayerSelector players={players} onChange={setSelectedPlayer2} label="Select Player 2" />
-      <div>
+      <div className="selectors">
+        <PlayerSelector players={players} onChange={setSelectedPlayer1} label="Select Player 1" />
+        <PlayerSelector players={players} onChange={setSelectedPlayer2} label="Select Player 2" />
+      </div>
+      <div className="comparison-container">
         {selectedPlayer1 && selectedPlayer2 && (
-          <p>
-            {/* Display selected player names; you'll replace this with a comparison of their stats */}
-            Comparing: {selectedPlayer1.name} vs. {selectedPlayer2.name}
-          </p>
+          <p>Comparing: {selectedPlayer1.name} vs. {selectedPlayer2.name}</p>
         )}
       </div>
     </div>
