@@ -1,16 +1,16 @@
-// src/PlayerSelector.js
 import React from 'react';
-// import Select from 'react-select';
+import Select from 'react-select';
 
 const PlayerSelector = ({ players, onChange, label }) => (
-    <div>
+    <div className="PlayerSelector">
         <label>{label}</label>
-        {/* <Select
+        <Select
+            className="dropdown"
             options={players}
             onChange={onChange}
-            getOptionLabel={(player) => player.name} // Determines what is displayed in the dropdown list
-            getOptionValue={(player) => player.id} // Determines the value associated with each dropdown item
-        /> */}
+            getOptionLabel={(player) => player.name}
+            getOptionValue={(player) => player.id}
+        />
     </div>
 );
 

@@ -5,8 +5,8 @@ import PlayerSelector from './components/PlayerSelector';
 
 function App() {
   const [players] = useState([
-    { id: '1', name: 'Player 1' }, // Placeholder data
-    { id: '2', name: 'Player 2' }, // You should fetch real data
+    { id: '1', name: 'Player 1' },
+    { id: '2', name: 'Player 2' },
   ]);
   const [selectedPlayer1, setSelectedPlayer1] = useState(null);
   const [selectedPlayer2, setSelectedPlayer2] = useState(null);

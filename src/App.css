@@ -39,4 +39,38 @@ h1 {
   font-size: 18px;
 }
 
-@media (max
+/* Within App.css */
+.PlayerSelector {
+  margin: 0 auto;
+  width: 100%;
+  max-width: 320px;
+  /* Adjust based on layout */
+}
+
+.PlayerSelector label {
+  display: block;
+  margin-bottom: 10px;
+  font-weight: bold;
+  color: #555;
+}
+
+/* React Select customization */
+.dropdown__control {
+  background-color: #fff;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-size: 16px;
+  padding: 4px;
+}
+
+.dropdown__option--is-selected {
+  background-color: #blue;
+  color: white;
+}
+
+.dropdown__menu {
+  border-radius: 4px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+/* You can add more .dropdown__ class customizations as needed */
