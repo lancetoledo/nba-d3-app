@@ -1,3 +1,4 @@
+// src./components/PlayerSelector.js
 import React from 'react';
 import Select from 'react-select';
 
