@@ -9,6 +9,7 @@ function App() {
   const [selectedPlayer1, setSelectedPlayer1] = useState({});
   const [selectedPlayer2, setSelectedPlayer2] = useState({});
 
+  // TheSportsDB API that we use to get images:
   // useEffect(() => {
   //   const apiKey = "3";
   //   const playerNames = ["Stephen Curry", "LeBron James"];
@@ -34,34 +35,63 @@ function App() {
   //   fetchPlayers();
   // }, []);
 
+  // balldontlie API to fetch PlayerIDS and then get Player stats using PlayerIDS
   useEffect(() => {
-    const fetchPlayers = async () => {
-      const apiKey = "07bcd3e7-2f7c-4f6c-904b-4b835d67ccba"; // Replace YOUR_API_KEY with your actual API key
+    const fetchPlayersAndTheirSeasonAverages = async () => {
+      const apiKey = "07bcd3e7-2f7c-4f6c-904b-4b835d67ccba";
+      const season = 2023;
+      const playerNames = ["LeBron James", "Stephen Curry"];
+      let playerIds = [];
+
+      // First, fetch player IDs based on their names
       try {
-        const response = await fetch('https://api.balldontlie.io/v1/players', {
-          headers: {
-            'Authorization': apiKey
+        for (const fullName of playerNames) {
+          const response = await fetch(`https://api.balldontlie.io/v1/players?search=${fullName.split(" ")[1]}`, {
+            headers: {
+              'Authorization': apiKey // Assuming API key is needed; replace with your actual API key
+            }
+          });
+
+          if (!response.ok) {
+            throw new Error(`HTTP error! status: ${response.status}`);
           }
-        });
-        if (!response.ok) {
-          throw new Error(`HTTP error! status: ${response.status}`);
+
+          const data = await response.json();
+          const player = data.data.find(p => `${p.first_name} ${p.last_name}` === fullName);
+
+          if (player) {
+            playerIds.push(player.id);
+          }
         }
-        const data = await response.json();
-        console.log(data)
-        // Process and set the players data as needed
-        const players = data.data.map(player => ({
-          id: player.id.toString(), // Ensure ID is a string for react-select compatibility
-          name: `${player.first_name} ${player.last_name}`,
-          // Add any additional player info you need
-        }));
-        setPlayersData(players);
       } catch (error) {
         console.error("Failed to fetch players:", error);
+        return; // Exit if the player fetch fails to prevent further errors
+      }
+
+      // Then, fetch season averages for these players
+      try {
+        const averagesResponse = await fetch(`https://api.balldontlie.io/v1/season_averages?season=${season}&player_ids[]=${playerIds.join('&player_ids[]=')}`, {
+          headers: {
+            'Authorization': apiKey // Assuming API key is needed; replace with your actual API key
+          }
+        });
+
+        if (!averagesResponse.ok) {
+          throw new Error(`HTTP error! status: ${averagesResponse.status}`);
+        }
+
+        const averagesData = await averagesResponse.json();
+        console.log(averagesData);
+
+        // Here, you can combine player information with their season averages
+        // Update your state with both player details and their season averages as needed
+      } catch (error) {
+        console.error("Failed to fetch season averages:", error);
       }
     };
 
-    fetchPlayers();
-  }, []);
+    fetchPlayersAndTheirSeasonAverages();
+  }, []); // Empty dependency array ensures this runs once on component mount
 
   // useMemo to only update on changes
   const filteredData = useMemo(() => [selectedPlayer1, selectedPlayer2].filter(Boolean), [selectedPlayer1, selectedPlayer2]);
