@@ -63,97 +63,15 @@ function App() {
     fetchPlayerData();
   }, []);
 
+  // console.log(playersData)
 
-  // // TheSportsDB API that we use to get images:
-  // useEffect(() => {
-  //   const apiKey = "3";
-  //   const playerNames = ["Stephen Curry", "LeBron James"];
-  //   const fetchPlayers = async () => {
-  //     const playersFetched = await Promise.all(playerNames.map(async (name) => {
-  //       const response = await fetch(`https://www.thesportsdb.com/api/v1/json/${apiKey}/searchplayers.php?p=${encodeURIComponent(name)}`);
-  //       const data = await response.json();
-  //       if (data.player && data.player.length > 0) {
-  //         return {
-  //           ...data.player[0],
-  //           // Normalize the id to ensure it's selectable
-  //           id: data.player[0].idPlayer,
-  //           name: data.player[0].strPlayer,
-  //           // Include other data as needed
-  //         };
-  //       }
-  //       return null;
-  //     }));
-
-  //     setPlayersData(playersFetched.filter(Boolean));
-  //   };
-
-  //   fetchPlayers();
-  // }, []);
-
-  // // balldontlie API to fetch PlayerIDS and then get Player stats using PlayerIDS
-  // useEffect(() => {
-  //   const fetchPlayersAndTheirSeasonAverages = async () => {
-  //     const apiKey = "07bcd3e7-2f7c-4f6c-904b-4b835d67ccba";
-  //     const season = 2023;
-  //     const playerNames = ["LeBron James", "Stephen Curry"];
-  //     let playerIds = [];
-
-  //     // First, fetch player IDs based on their names
-  //     try {
-  //       for (const fullName of playerNames) {
-  //         const response = await fetch(`https://api.balldontlie.io/v1/players?search=${fullName.split(" ")[1]}`, {
-  //           headers: {
-  //             'Authorization': apiKey // Assuming API key is needed; replace with your actual API key
-  //           }
-  //         });
-
-  //         if (!response.ok) {
-  //           throw new Error(`HTTP error! status: ${response.status}`);
-  //         }
-
-  //         const data = await response.json();
-  //         const player = data.data.find(p => `${p.first_name} ${p.last_name}` === fullName);
-
-  //         if (player) {
-  //           playerIds.push(player.id);
-  //         }
-  //       }
-  //     } catch (error) {
-  //       console.error("Failed to fetch players:", error);
-  //       return; // Exit if the player fetch fails to prevent further errors
-  //     }
-
-  //     // Then, fetch season averages for these players
-  //     try {
-  //       const averagesResponse = await fetch(`https://api.balldontlie.io/v1/season_averages?season=${season}&player_ids[]=${playerIds.join('&player_ids[]=')}`, {
-  //         headers: {
-  //           'Authorization': apiKey // Assuming API key is needed; replace with your actual API key
-  //         }
-  //       });
-
-  //       if (!averagesResponse.ok) {
-  //         throw new Error(`HTTP error! status: ${averagesResponse.status}`);
-  //       }
-
-  //       const averagesData = await averagesResponse.json();
-  //       console.log(averagesData);
-
-  //       // Here, you can combine player information with their season averages
-  //       // Update your state with both player details and their season averages as needed
-  //     } catch (error) {
-  //       console.error("Failed to fetch season averages:", error);
-  //     }
-  //   };
-
-  //   fetchPlayersAndTheirSeasonAverages();
-  // }, []); // Empty dependency array ensures this runs once on component mount
 
   // useMemo to only update on changes
   const filteredData = useMemo(() => [selectedPlayer1, selectedPlayer2].filter(Boolean), [selectedPlayer1, selectedPlayer2]);
 
   return (
     <div className="App">
-      <h1>NBA Player Stats Comparator</h1>
+      <h1>Compare NBA Player Stats</h1>
       <div className="selectors">
         <PlayerSelector players={playersData} onChange={(selected) => setSelectedPlayer1(selected)} label="Select Player 1" />
         <PlayerSelector players={playersData} onChange={(selected) => setSelectedPlayer2(selected)} label="Select Player 2" />
