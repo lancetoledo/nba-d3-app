@@ -63,7 +63,16 @@ const BarChart = ({ data }) => {
                 .attr("y", d => y(d.value))
                 .attr("height", d => height - y(d.value));
 
-            // Optionally, add enhancements such as legends, axis titles, or tooltips here
+            // Add labels for each bar for PTS, AST, REB
+            barsGroup.selectAll(null)
+                .data(d => ['pts', 'ast', 'reb'].map(key => ({ key, value: d.seasonAverages && d.seasonAverages[key] ? d.seasonAverages[key] : 0 })))
+                .enter().append("text")
+                .text(d => `${d.key.toUpperCase()}: ${d.value.toFixed(1)}`)
+                .attr("x", d => x1(d.key) + x1.bandwidth() / 2)
+                .attr("y", d => y(d.value) - 5)
+                .attr("text-anchor", "middle")
+                .style("fill", "#333")
+                .style("font-size", "10px");
         }
     }, [data]);
 
