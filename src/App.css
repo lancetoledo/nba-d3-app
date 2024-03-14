@@ -1,4 +1,4 @@
-/* App.css */
+/* App.css - General Styles */
 .App {
   text-align: center;
   font-family: 'Arial', sans-serif;
@@ -10,23 +10,55 @@ h1 {
   margin-bottom: 30px;
 }
 
+/* Flexbox layout for selectors */
 .selectors {
   display: flex;
-  justify-content: center;
+  justify-content: space-around;
+  flex-wrap: wrap;
   gap: 20px;
   margin-bottom: 20px;
+}
+
+/* Player Selector and React Select Customization */
+.PlayerSelector {
+  width: 100%;
+  max-width: 320px;
+  /* Adjust based on layout, ensuring responsiveness */
 }
 
 .PlayerSelector label {
   display: block;
   margin-bottom: 10px;
-  color: #555;
   font-weight: bold;
+  color: #555;
 }
 
-/* Additional styling for react-select might be required and can be targeted specifically */
+/* Customize react-select dropdown styles */
+.Select__control {
+  background-color: #fff;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-size: 16px;
+}
 
+.Select__option--is-selected,
+.Select__option--is-focused {
+  background-color: #007bff;
+  /* A nice shade of blue */
+  color: white;
+}
+
+.Select__menu {
+  border-radius: 4px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+/* Player Information Display */
 .comparison-container {
+  display: flex;
+  justify-content: space-around;
+  flex-wrap: wrap;
+  gap: 20px;
   margin-top: 20px;
   padding: 20px;
   border-radius: 8px;
@@ -34,43 +66,38 @@ h1 {
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
-.comparison-container p {
-  color: #444;
-  font-size: 18px;
-}
-
-/* Within App.css */
-.PlayerSelector {
-  margin: 0 auto;
-  width: 100%;
+.player-info {
+  text-align: left;
   max-width: 320px;
-  /* Adjust based on layout */
 }
 
-.PlayerSelector label {
-  display: block;
-  margin-bottom: 10px;
-  font-weight: bold;
-  color: #555;
+.player-info h2 {
+  font-size: 22px;
+  margin-top: 0;
 }
 
-/* React Select customization */
-.dropdown__control {
-  background-color: #fff;
-  border: 1px solid #ccc;
+.player-info img {
+  max-width: 100%;
+  height: auto;
   border-radius: 4px;
+  margin-top: 10px;
+}
+
+.player-info p {
   font-size: 16px;
-  padding: 4px;
+  color: #444;
 }
 
-.dropdown__option--is-selected {
-  background-color: #blue;
-  color: white;
-}
+/* Adjustments for smaller screens */
+@media (max-width: 768px) {
 
-.dropdown__menu {
-  border-radius: 4px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-}
+  .selectors,
+  .comparison-container {
+    flex-direction: column;
+    align-items: center;
+  }
 
-/* You can add more .dropdown__ class customizations as needed */
+  .player-info {
+    text-align: center;
+  }
+}

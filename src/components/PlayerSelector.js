@@ -1,4 +1,4 @@
-// src./components/PlayerSelector.js
+// src/components/PlayerSelector.js
 import React from 'react';
 import Select from 'react-select';
 
@@ -8,9 +8,11 @@ const PlayerSelector = ({ players, onChange, label }) => (
         <Select
             className="dropdown"
             options={players}
-            onChange={onChange}
+            // Adjust onChange to pass the selected option (player object) directly
+            onChange={(selectedOption) => onChange(selectedOption)}
             getOptionLabel={(player) => player.name}
             getOptionValue={(player) => player.id}
+        // isClearable
         />
     </div>
 );
