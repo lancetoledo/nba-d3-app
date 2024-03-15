@@ -3,6 +3,7 @@ import React, { useState, useEffect, useMemo } from 'react';
 import './App.css';
 import PlayerSelector from './components/PlayerSelector';
 import BarChart from './components/BarChart';
+import RadarChart from './components/RadarChart';
 
 function App() {
   const [playersData, setPlayersData] = useState([]);
