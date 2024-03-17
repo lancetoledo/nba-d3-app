@@ -89,6 +89,7 @@ function App() {
         ))}
       </div>
       <BarChart data={filteredData} />
+      <RadarChart data={filteredData} />
     </div>
   );
 }
