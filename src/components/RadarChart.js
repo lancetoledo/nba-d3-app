@@ -2,10 +2,17 @@ import React, { useEffect, useRef } from 'react';
 import * as d3 from 'd3';
 
 const RadarChart = ({ data }) => {
+
+    console.log(data, "RADAR")
     const chartRef = useRef(null);
 
     useEffect(() => {
-        if (data || data.length === 0) return;
+        if (!data || data.length === 0) return;
+
+        // Make sure each player has seasonAverages data
+        const playersWithSeasonAverages = data.filter(player => player.seasonAverages);
+
+        if (playersWithSeasonAverages.length === 0) return; // Exit if no player has
 
         // Define chart config
         const cfg = {
@@ -31,17 +38,42 @@ const RadarChart = ({ data }) => {
         // Remove the previous chart before drawing
         d3.select(chartRef.current).select("svg").remove();
 
-        const allAxis = data[0].map((el, i) => el.axis), //Names of each axis
-            total = allAxis.length, //The number of different axes
-            radius = Math.min(cfg.w / 2, cfg.h / 2), //Radius of the outermost circle
-            Format = d3.format(cfg.format), //Formatting
-            angleSlice = Math.PI * 2 / total; //The width in radians of each "slice"
+        // Since statsToShow are static, you might consider adjusting maxValue based on the actual data.
+        const statsToShow = ['pts', 'ast', 'reb', 'stl', 'blk'];
 
+        // Prepare the data for the radar chart
+        const preparedData = data.map(player => {
+            // Check if seasonAverages exists and is an object; otherwise, use an empty object as fallback
+            const averages = player.seasonAverages || {};
+
+            return {
+                name: player.name,
+                // Use .map() to transform each statToShow into a { axis, value } object
+                axes: statsToShow.map(stat => ({
+                    axis: stat,
+                    value: averages[stat] !== undefined ? averages[stat] : 0
+                }))
+            };
+        });
+
+        console.log(data, "PREPARED")
+
+        // Ensure maxValue considers actual data values directly from playersWithSeasonAverages
+        cfg.maxValue = Math.max(...playersWithSeasonAverages.flatMap(player =>
+            statsToShow.map(stat => player.seasonAverages[stat] || 0)
+        ));
+        const allAxis = statsToShow,
+            total = allAxis.length,
+            radius = Math.min(cfg.w / 2, cfg.h / 2),
+            Format = d3.format(cfg.format),
+            angleSlice = Math.PI * 2 / total;
+
+        // Then proceed with creating the radar chart as before...
         // Create the container SVG and g 
         let svg = d3.select(chartRef.current).append("svg")
             .attr("width", cfg.w + cfg.margin.left + cfg.margin.right)
             .attr("height", cfg.h + cfg.margin.top + cfg.margin.bottom)
-            .attr("class", "radar" + chartRef.current);
+            .attr("class", "radar");
         let g = svg.append("g")
             .attr("transform", "translate(" + (cfg.w / 2 + cfg.margin.left) + "," + (cfg.h / 2 + cfg.margin.top) + ")");
 
@@ -103,7 +135,45 @@ const RadarChart = ({ data }) => {
             .text(d => d)
             .call(wrap, cfg.wrapWidth);
 
-        // The radar chart function is here...
+        // The key part: converting each player's data into radar chart-friendly format
+
+        const maxValues = {};
+        statsToShow.forEach(stat => {
+            maxValues[stat] = Math.max(...playersWithSeasonAverages.map(player => player.seasonAverages[stat] || 0));
+        });
+        // Now prepare the radar chart data with normalized values
+        const radarData = playersWithSeasonAverages.map(player => {
+            return {
+                name: player.name,
+                axes: statsToShow.map(stat => {
+                    // Normalize the value to be between 0 and 100
+                    const value = (player.seasonAverages[stat] || 0) / (maxValues[stat] || 1) * 100;
+                    return { axis: stat, value: Math.round(value) }; // Round the value for better readability
+                })
+            };
+        });
+
+        // Drawing radar areas for each player
+        radarData.forEach((playerData, i) => {
+            const radarLine = d3.radialLine()
+                .curve(d3.curveLinearClosed)
+                .radius(d => d.value * radius / 100) // Scale the radius according to the value
+                .angle((d, i) => i * angleSlice);
+
+            const color = cfg.color(i); // Use the predefined color scale
+
+            // Draw the radar area
+            g.selectAll(".radarArea" + i)
+                .data([playerData.axes])
+                .enter()
+                .append("path")
+                .attr("class", "radarArea" + i)
+                .attr("d", radarLine)
+                .style("fill", color)
+                .style("fill-opacity", cfg.opacityArea)
+            // Add more styling and transitions as needed
+
+        });
 
         // Wrap SVG text - taken from http://bl.ocks.org/mbostock/7555321
         function wrap(text, width) {

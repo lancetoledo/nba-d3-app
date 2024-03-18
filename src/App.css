@@ -88,6 +88,36 @@ h1 {
   color: #444;
 }
 
+.radar {
+  max-width: 100%;
+  height: auto;
+}
+
+.axisWrapper .gridCircle {
+  stroke-dasharray: 2;
+}
+
+.axisWrapper .axisLabel {
+  font-size: 12px;
+}
+
+.axisWrapper .axis line {
+  stroke: #ccc;
+}
+
+.radarArea {
+  fill-opacity: 0.7;
+}
+
+.radarStroke {
+  stroke-width: 2px;
+  fill: none;
+}
+
+.legend {
+  font-family: Arial, sans-serif;
+}
+
 /* Adjustments for smaller screens */
 @media (max-width: 768px) {
 
