@@ -58,22 +58,23 @@ const RadarChart = ({ data }) => {
 
         console.log(data, "PREPARED")
 
-        // Ensure maxValue considers actual data values directly from playersWithSeasonAverages
-        cfg.maxValue = Math.max(...playersWithSeasonAverages.flatMap(player =>
-            statsToShow.map(stat => player.seasonAverages[stat] || 0)
-        ));
+        // Ensure the maxValue is correctly calculated and not exceeding 100%
+        cfg.maxValue = Math.max(...data.flatMap(d => statsToShow.map(stat => d.seasonAverages[stat])));
         const allAxis = statsToShow,
             total = allAxis.length,
-            radius = Math.min(cfg.w / 2, cfg.h / 2),
+            radius = Math.min(cfg.w / 2, cfg.h / 2) - 50, // Leave space for labels
             Format = d3.format(cfg.format),
             angleSlice = Math.PI * 2 / total;
 
         // Then proceed with creating the radar chart as before...
         // Create the container SVG and g 
+        // Create the container SVG and g 
         let svg = d3.select(chartRef.current).append("svg")
             .attr("width", cfg.w + cfg.margin.left + cfg.margin.right)
             .attr("height", cfg.h + cfg.margin.top + cfg.margin.bottom)
             .attr("class", "radar");
+
+
         let g = svg.append("g")
             .attr("transform", "translate(" + (cfg.w / 2 + cfg.margin.left) + "," + (cfg.h / 2 + cfg.margin.top) + ")");
 
@@ -85,7 +86,6 @@ const RadarChart = ({ data }) => {
             feMergeNode_2 = feMerge.append('feMergeNode').attr('in', 'SourceGraphic');
 
         // Create the radial lines
-        // Adjust the circle, line, and text styles for better visibility
         let axisGrid = g.append("g").attr("class", "axisWrapper");
         axisGrid.selectAll(".levels")
             .data(d3.range(1, (cfg.levels + 1)).reverse())
@@ -93,12 +93,12 @@ const RadarChart = ({ data }) => {
             .append("circle")
             .attr("class", "gridCircle")
             .attr("r", d => radius / cfg.levels * d)
-            .style("fill", "none") // No fill to ensure the dark background shows through
-            .style("stroke", "#FFF") // White lines for contrast
-            .style("stroke-opacity", 0.75) // Slightly transparent for a subtler effect
-            .style("stroke-width", "0.5px") // Thinner lines for a finer grid
+            .style("fill", "#CDCDCD")
+            .style("stroke", "#CDCDCD")
+            .style("fill-opacity", cfg.opacityCircles)
             .style("filter", "url(#glow)");
 
+        // Text indicating at what % each level is
         axisGrid.selectAll(".axisLabel")
             .data(d3.range(1, (cfg.levels + 1)).reverse())
             .enter().append("text")
@@ -107,23 +107,29 @@ const RadarChart = ({ data }) => {
             .attr("y", d => -d * radius / cfg.levels)
             .attr("dy", "0.4em")
             .style("font-size", "10px")
-            .attr("fill", "#FFF") // White text for readability
+            .attr("fill", "#737373")
             .text(d => Format(cfg.maxValue * d / cfg.levels) + cfg.unit);
 
+        //Create the straight lines radiating outward from the center
+        //Create the straight lines radiating outward from the center
         var axis = axisGrid.selectAll(".axis")
             .data(allAxis)
             .enter()
             .append("g")
             .attr("class", "axis");
+
+        // Check if the radius calculation and positioning logic are correct
         axis.append("line")
             .attr("x1", 0)
             .attr("y1", 0)
             .attr("x2", (d, i) => radius * Math.cos(angleSlice * i - Math.PI / 2))
             .attr("y2", (d, i) => radius * Math.sin(angleSlice * i - Math.PI / 2))
             .attr("class", "line")
-            .style("stroke", "#FFF") // White for visibility
+            .style("stroke", "white")
             .style("stroke-width", "2px");
 
+        // Append the labels at each axis
+        // Adjust the 'labelFactor' if necessary to ensure labels appear within the SVG
         axis.append("text")
             .attr("class", "legend")
             .style("font-size", "11px")
@@ -131,9 +137,10 @@ const RadarChart = ({ data }) => {
             .attr("dy", "0.35em")
             .attr("x", (d, i) => radius * cfg.labelFactor * Math.cos(angleSlice * i - Math.PI / 2))
             .attr("y", (d, i) => radius * cfg.labelFactor * Math.sin(angleSlice * i - Math.PI / 2))
-            .text(d => d)
-            .attr("fill", "#FFF") // White text for labels
+            .text(d => d.toUpperCase()) // Ensure text is uppercase for consistency
             .call(wrap, cfg.wrapWidth);
+
+
 
         // The key part: converting each player's data into radar chart-friendly format
 
@@ -141,17 +148,57 @@ const RadarChart = ({ data }) => {
         statsToShow.forEach(stat => {
             maxValues[stat] = Math.max(...playersWithSeasonAverages.map(player => player.seasonAverages[stat] || 0));
         });
-        // Now prepare the radar chart data with normalized values
-        const radarData = playersWithSeasonAverages.map(player => {
-            return {
-                name: player.name,
-                axes: statsToShow.map(stat => {
-                    // Normalize the value to be between 0 and 100
-                    const value = (player.seasonAverages[stat] || 0) / (maxValues[stat] || 1) * 100;
-                    return { axis: stat, value: Math.round(value) }; // Round the value for better readability
-                })
-            };
-        });
+
+        // ... RadarChart.js contents before this code remain unchanged ...
+
+        //Create the straight lines radiating outward from the center
+        var axis = axisGrid.selectAll(".axis")
+            .data(allAxis)
+            .enter()
+            .append("g")
+            .attr("class", "axis");
+
+        // Check if the radius calculation and positioning logic are correct
+        axis.append("line")
+            .attr("x1", 0)
+            .attr("y1", 0)
+            .attr("x2", (d, i) => radius * Math.cos(angleSlice * i - Math.PI / 2))
+            .attr("y2", (d, i) => radius * Math.sin(angleSlice * i - Math.PI / 2))
+            .attr("class", "line")
+            .style("stroke", "white")
+            .style("stroke-width", "2px");
+
+        // Append the labels at each axis
+        // Adjust the 'labelFactor' if necessary to ensure labels appear within the SVG
+        axis.append("text")
+            .attr("class", "legend")
+            .style("font-size", "11px")
+            .attr("text-anchor", "middle")
+            .attr("dy", "0.35em")
+            .attr("x", (d, i) => radius * cfg.labelFactor * Math.cos(angleSlice * i - Math.PI / 2))
+            .attr("y", (d, i) => radius * cfg.labelFactor * Math.sin(angleSlice * i - Math.PI / 2))
+            .text(d => d.toUpperCase()) // Ensure text is uppercase for consistency
+            .call(wrap, cfg.wrapWidth);
+
+        // ... Code to draw radar areas ...
+
+        // Correct the normalization of values
+        // Make sure to calculate the maxValue correctly as the highest value from the data
+        cfg.maxValue = Math.max(cfg.maxValue, ...playersWithSeasonAverages.flatMap(player =>
+            statsToShow.map(stat => player.seasonAverages[stat] || 0)
+        ));
+
+        // Now normalize the values against maxValue
+        const radarData = playersWithSeasonAverages.map(player => ({
+            name: player.name,
+            axes: statsToShow.map(stat => {
+                const value = player.seasonAverages[stat] || 0;
+                return {
+                    axis: stat,
+                    value: value / cfg.maxValue // Normalize based on maxValue
+                };
+            })
+        }));
 
         // Drawing radar areas for each player
         radarData.forEach((playerData, i) => {
