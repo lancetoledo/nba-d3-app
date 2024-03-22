@@ -3,7 +3,7 @@ import * as d3 from 'd3';
 
 const RadarChart = ({ data }) => {
 
-    console.log(data, "RADAR")
+    // console.log(data, "RADAR")
     const chartRef = useRef(null);
 
     useEffect(() => {
@@ -56,10 +56,11 @@ const RadarChart = ({ data }) => {
             };
         });
 
-        console.log(data, "PREPARED")
 
-        // Ensure the maxValue is correctly calculated and not exceeding 100%
-        cfg.maxValue = Math.max(...data.flatMap(d => statsToShow.map(stat => d.seasonAverages[stat])));
+        // Find the highest value from all the players' stats to set as maxValue
+        cfg.maxValue = Math.max(...playersWithSeasonAverages.flatMap(player =>
+            statsToShow.map(stat => player.seasonAverages[stat] || 0)
+        ));
         const allAxis = statsToShow,
             total = allAxis.length,
             radius = Math.min(cfg.w / 2, cfg.h / 2) - 50, // Leave space for labels
@@ -108,7 +109,7 @@ const RadarChart = ({ data }) => {
             .attr("dy", "0.4em")
             .style("font-size", "10px")
             .attr("fill", "#737373")
-            .text(d => Format(cfg.maxValue * d / cfg.levels) + cfg.unit);
+            .text(d => d3.format(cfg.format)(d / cfg.levels)); // Use d3.format to apply percentage formatting
 
         //Create the straight lines radiating outward from the center
         //Create the straight lines radiating outward from the center
@@ -144,10 +145,11 @@ const RadarChart = ({ data }) => {
 
         // The key part: converting each player's data into radar chart-friendly format
 
-        const maxValues = {};
-        statsToShow.forEach(stat => {
-            maxValues[stat] = Math.max(...playersWithSeasonAverages.map(player => player.seasonAverages[stat] || 0));
-        });
+        // Find the highest value for each stat to set as maxValue for that stat
+        const maxValues = statsToShow.reduce((acc, stat) => {
+            acc[stat] = Math.max(...playersWithSeasonAverages.map(player => player.seasonAverages[stat] || 0));
+            return acc;
+        }, {});
 
         // ... RadarChart.js contents before this code remain unchanged ...
 
@@ -188,38 +190,38 @@ const RadarChart = ({ data }) => {
             statsToShow.map(stat => player.seasonAverages[stat] || 0)
         ));
 
-        // Now normalize the values against maxValue
+        // Normalize the data
         const radarData = playersWithSeasonAverages.map(player => ({
             name: player.name,
             axes: statsToShow.map(stat => {
                 const value = player.seasonAverages[stat] || 0;
+                // Normalize the value to fit within the radar chart's scale
                 return {
                     axis: stat,
-                    value: value / cfg.maxValue // Normalize based on maxValue
+                    value: (value / cfg.maxValue) * 100 // Convert to a scale of 0 - 100
                 };
             })
         }));
 
-        // Drawing radar areas for each player
+
+
+        // Draw the radar areas for each player using normalized values
         radarData.forEach((playerData, i) => {
-            const radarLine = d3.radialLine()
+            // Use d3.lineRadial which is the updated method in D3 v5+
+            const radarLine = d3.lineRadial()
                 .curve(d3.curveLinearClosed)
-                .radius(d => d.value * radius / 100) // Scale the radius according to the value
+                .radius(d => d.value * radius / 100) // Use the normalized value for the radius
                 .angle((d, i) => i * angleSlice);
 
-            const color = cfg.color(i); // Use the predefined color scale
-
-            // Draw the radar area
+            // Append the radar area paths
             g.selectAll(".radarArea" + i)
                 .data([playerData.axes])
                 .enter()
                 .append("path")
                 .attr("class", "radarArea" + i)
                 .attr("d", radarLine)
-                .style("fill", color)
-                .style("fill-opacity", cfg.opacityArea)
-            // Add more styling and transitions as needed
-
+                .style("fill", cfg.color(i))
+                .style("fill-opacity", cfg.opacityArea);
         });
 
         // Wrap SVG text - taken from http://bl.ocks.org/mbostock/7555321
