@@ -15,7 +15,34 @@ function App() {
       const theSportsDBApiKey = "3";
       const ballDontLieApiKey = "07bcd3e7-2f7c-4f6c-904b-4b835d67ccba";
       const season = 2023;
-      const playerNames = ["Stephen Curry", "LeBron James"];
+      const playerNames = ["Stephen Curry", "LeBron James", "Kevin Durant", "Giannis Antetokounmpo"];
+      const topPlayerNames = [
+        "LeBron James",
+        "Kevin Durant",
+        "Giannis Antetokounmpo",
+        "Stephen Curry",
+        "Nikola Jokic",
+        "Joel Embiid",
+        "Luka Doncic",
+        "Kawhi Leonard",
+        "Anthony Davis",
+        "James Harden",
+        "Damian Lillard",
+        "Jayson Tatum",
+        "Jimmy Butler",
+        "Devin Booker",
+        "Chris Paul",
+        "Kyrie Irving",
+        "Russell Westbrook",
+        "Paul George",
+        "Karl-Anthony Towns",
+        "Bradley Beal",
+        "Donovan Mitchell",
+        "Zion Williamson",
+        "Trae Young",
+        "Ja Morant",
+        "Bam Adebayo"
+      ]
 
       // First, fetch detailed player information including images from TheSportsDB
       const playersWithImages = await Promise.all(playerNames.map(async (name) => {

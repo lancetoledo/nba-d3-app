@@ -85,6 +85,7 @@ const RadarChart = ({ data }) => {
             feMergeNode_2 = feMerge.append('feMergeNode').attr('in', 'SourceGraphic');
 
         // Create the radial lines
+        // Adjust the circle, line, and text styles for better visibility
         let axisGrid = g.append("g").attr("class", "axisWrapper");
         axisGrid.selectAll(".levels")
             .data(d3.range(1, (cfg.levels + 1)).reverse())
@@ -92,12 +93,12 @@ const RadarChart = ({ data }) => {
             .append("circle")
             .attr("class", "gridCircle")
             .attr("r", d => radius / cfg.levels * d)
-            .style("fill", "#CDCDCD")
-            .style("stroke", "#CDCDCD")
-            .style("fill-opacity", cfg.opacityCircles)
+            .style("fill", "none") // No fill to ensure the dark background shows through
+            .style("stroke", "#FFF") // White lines for contrast
+            .style("stroke-opacity", 0.75) // Slightly transparent for a subtler effect
+            .style("stroke-width", "0.5px") // Thinner lines for a finer grid
             .style("filter", "url(#glow)");
 
-        // Text indicating at what % each level is
         axisGrid.selectAll(".axisLabel")
             .data(d3.range(1, (cfg.levels + 1)).reverse())
             .enter().append("text")
@@ -106,10 +107,9 @@ const RadarChart = ({ data }) => {
             .attr("y", d => -d * radius / cfg.levels)
             .attr("dy", "0.4em")
             .style("font-size", "10px")
-            .attr("fill", "#737373")
+            .attr("fill", "#FFF") // White text for readability
             .text(d => Format(cfg.maxValue * d / cfg.levels) + cfg.unit);
 
-        //Create the straight lines radiating outward from the center
         var axis = axisGrid.selectAll(".axis")
             .data(allAxis)
             .enter()
@@ -121,10 +121,9 @@ const RadarChart = ({ data }) => {
             .attr("x2", (d, i) => radius * Math.cos(angleSlice * i - Math.PI / 2))
             .attr("y2", (d, i) => radius * Math.sin(angleSlice * i - Math.PI / 2))
             .attr("class", "line")
-            .style("stroke", "white")
+            .style("stroke", "#FFF") // White for visibility
             .style("stroke-width", "2px");
 
-        //Append the labels at each axis
         axis.append("text")
             .attr("class", "legend")
             .style("font-size", "11px")
@@ -133,6 +132,7 @@ const RadarChart = ({ data }) => {
             .attr("x", (d, i) => radius * cfg.labelFactor * Math.cos(angleSlice * i - Math.PI / 2))
             .attr("y", (d, i) => radius * cfg.labelFactor * Math.sin(angleSlice * i - Math.PI / 2))
             .text(d => d)
+            .attr("fill", "#FFF") // White text for labels
             .call(wrap, cfg.wrapWidth);
 
         // The key part: converting each player's data into radar chart-friendly format
