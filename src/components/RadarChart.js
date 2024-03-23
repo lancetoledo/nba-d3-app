@@ -191,26 +191,44 @@ const RadarChart = ({ data }) => {
         ));
 
         // Normalize the data
-        const radarData = playersWithSeasonAverages.map(player => ({
+        // Normalize the data for each stat against its max value
+        // const radarData = playersWithSeasonAverages.map(player => ({
+        //     name: player.name,
+        //     axes: statsToShow.map(stat => {
+        //         const value = player.seasonAverages[stat] || 0;
+        //         // Ensure that the value doesn't exceed 100% after normalization
+        //         const normalizedValue = Math.min((value / maxValues[stat]) * 100, 100);
+        //         return {
+        //             axis: stat,
+        //             value: normalizedValue
+        //         };
+        //     })
+        // }));
+
+        // Use percentile ranks for normalization
+        // This would require you to have or calculate the percentile rank for each stat for each player
+        const radarDataPercentiles = playersWithSeasonAverages.map(player => ({
             name: player.name,
             axes: statsToShow.map(stat => {
-                const value = player.seasonAverages[stat] || 0;
-                // Normalize the value to fit within the radar chart's scale
+                const percentileRank = player.percentileRanks[stat] || 0; // Assuming you have percentile ranks data
+
                 return {
                     axis: stat,
-                    value: (value / cfg.maxValue) * 100 // Convert to a scale of 0 - 100
+                    value: percentileRank // Use the percentile rank directly
                 };
             })
         }));
 
 
+        // Calculate the scale factor based on the number of stats
+        const radarChartScaleFactor = Math.sqrt(statsToShow.length) / Math.sqrt(5); // Base number of stats is 5
+        const scaledRadius = radius / radarChartScaleFactor;
 
-        // Draw the radar areas for each player using normalized values
-        radarData.forEach((playerData, i) => {
-            // Use d3.lineRadial which is the updated method in D3 v5+
+        // Draw the radar areas for each player using percentile ranks
+        radarDataPercentiles.forEach((playerData, i) => {
             const radarLine = d3.lineRadial()
                 .curve(d3.curveLinearClosed)
-                .radius(d => d.value * radius / 100) // Use the normalized value for the radius
+                .radius(d => d.value * scaledRadius / 100) // Use the scaled radius
                 .angle((d, i) => i * angleSlice);
 
             // Append the radar area paths
@@ -223,6 +241,30 @@ const RadarChart = ({ data }) => {
                 .style("fill", cfg.color(i))
                 .style("fill-opacity", cfg.opacityArea);
         });
+
+
+        // // Draw the radar areas for each player using normalized values
+        // radarData.forEach((playerData, i) => {
+        //     // Use d3.lineRadial which is the updated method in D3 v5+
+        //     const radarLine = d3.lineRadial()
+        //         .curve(d3.curveLinearClosed)
+        //         .radius(d => d.value * radius / 100) // Use the normalized value for the radius
+        //         .angle((d, i) => i * angleSlice);
+
+        //     // Append the radar area paths
+        //     g.selectAll(".radarArea" + i)
+        //         .data([playerData.axes])
+        //         .enter()
+        //         .append("path")
+        //         .attr("class", "radarArea" + i)
+        //         .attr("d", radarLine)
+        //         .style("fill", cfg.color(i))
+        //         .style("fill-opacity", cfg.opacityArea);
+        // });
+
+
+
+
 
         // Wrap SVG text - taken from http://bl.ocks.org/mbostock/7555321
         function wrap(text, width) {

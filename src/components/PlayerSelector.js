@@ -4,7 +4,6 @@ import Select from 'react-select';
 
 const PlayerSelector = ({ players, onChange, label }) => (
     <div className="PlayerSelector">
-        <label>{label}</label>
         <Select
             className="dropdown"
             options={players}
@@ -12,6 +11,7 @@ const PlayerSelector = ({ players, onChange, label }) => (
             onChange={(selectedOption) => onChange(selectedOption)}
             getOptionLabel={(player) => player.name}
             getOptionValue={(player) => player.id}
+            placeholder={"Select Player"}
         // isClearable
         />
     </div>

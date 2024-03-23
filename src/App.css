@@ -1,44 +1,88 @@
+:root {
+  --nba-dark-blue: #1d428a;
+  --nba-red: #c8102e;
+  --nba-white: #ffffff;
+  --nba-gray: #646f7c;
+}
+
 /* General App Styles */
 .App {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
   text-align: center;
   font-family: 'Helvetica Neue', Arial, sans-serif;
   /* Closer to NBA.com's font choice */
-  /* background-color: #1d428a; */
-  /* Dark blue background, akin to NBA theme */
-  color: #000000;
+  /* background-color: var(--nba-dark-blue); */
+  /* color: var(--nba-white); */
   /* White text for better contrast */
-  padding: 20px;
+  /* padding: 20px; */
   min-height: 100vh;
+  margin: 0;
   /* Ensure full height */
 }
 
+.header {
+  background-color: var(--nba-dark-blue);
+  height: 100%;
+  width: 100%;
+  border-bottom: 5px solid var(--nba-red);
+  margin-bottom: 20px;
+}
+
+.main {
+  min-height: 100vh;
+  /* background-color: red; */
+  width: 50%;
+}
+
 h1 {
-  color: #ffffff;
-  margin-bottom: 30px;
+  color: var(--nba-white);
+  /* color: black; */
+  padding-bottom: 10px;
   font-size: 28px;
   /* Larger, more prominent title */
+}
+
+.player-selection-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  /* gap: 200px; */
+  /* background-color: red; */
+  /* border: 1px solid red; */
+}
+
+.player-img-box {
+  width: 100%;
+  background: linear-gradient(to right, #FFD700, #1E90FF);
+  /* Gold to blue gradient */
+  border: 1px solid lightgray;
+  border-radius: 5px;
 }
 
 /* Flexbox Layout for Selectors */
 .selectors {
   display: flex;
   justify-content: center;
-  flex-wrap: wrap;
+  /* flex-wrap: wrap; */
   gap: 20px;
-  margin-bottom: 20px;
+  margin-top: 20px;
+  width: 100%;
 }
 
 /* Player Selector Styling */
 .PlayerSelector {
   width: 100%;
-  max-width: 320px;
+  /* max-width: 320px; */
+  border-color: var(--nba-red);
 }
 
 .PlayerSelector label {
   display: block;
   margin-bottom: 10px;
   font-weight: bold;
-  color: #ffffff;
+  color: black;
   /* White label text */
 }
 
@@ -57,7 +101,7 @@ h1 {
 .Select__option--is-focused {
   background-color: #007bff;
   /* Consistent blue selection */
-  color: #fff;
+  color: var(--nba-white);
   /* White text for readability */
 }
 
@@ -69,29 +113,89 @@ h1 {
 /* Comparison Container & Player Info Display */
 .comparison-container {
   display: flex;
-  justify-content: center;
-  flex-wrap: wrap;
-  gap: 20px;
+  flex-direction: column;
   margin-top: 20px;
-  padding: 20px;
   border-radius: 8px;
-  background-color: #ffffff;
-  /* White background for readability */
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
   color: #333;
-  /* Dark text on light background */
+  margin-bottom: 20px;
 }
 
-.player-info {
-  text-align: left;
-  max-width: 320px;
+.comparison-label {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  font-weight: bold;
+  /* margin-bottom: 10px; */
+  height: 50px;
+  background-color: var(--nba-dark-blue);
+  color: var(--nba-white);
 }
 
-.player-info h2,
-.player-info p {
-  color: #333;
-  /* Ensuring text is easily readable */
+.compare-row {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-top: 1px solid lightgray;
+  /* Add top border */
+  border-bottom: 1px solid lightgray;
+  /* Add bottom border */
+  /* padding: 10px 0; */
+  /* Add padding to give some space around the content */
+  height: 40px;
 }
+
+.compare-stats {
+  display: flex;
+  justify-content: center;
+  flex-basis: 40%;
+  /* Adjust as necessary */
+  text-align: center;
+  border-right: 1px solid lightgray;
+  border-left: 1px solid lightgray;
+  height: 100%;
+}
+
+.comparison-category {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: var(--nba-white);
+  flex-basis: 20%;
+  height: 100%;
+  /* Adjust as necessary */
+  text-align: center;
+  font-weight: bold;
+  background-color: gray;
+  border-bottom: 1px solid lightgray;
+  border-top: 1px solid lightgray;
+  /* Add background color */
+}
+
+/* Style for the player's position and number */
+.player-position,
+.player-number {
+  font-size: 1em;
+  color: black;
+  /* Choose a color that fits the theme */
+  padding: 5px;
+  margin: 0 5px;
+}
+
+/* Additional styles for info rows */
+.info-row {
+  display: flex;
+  justify-content: space-between;
+}
+
+.info-label,
+.info-value {
+  flex-basis: calc(50% - 10px);
+  text-align: center;
+  padding: 5px;
+}
+
 
 .player-info img {
   border-radius: 4px;
@@ -102,6 +206,21 @@ h1 {
 .player-info p {
   font-size: 16px;
   color: #444;
+}
+
+.highlight,
+.highlight-opponent {
+  background-color: gold;
+  color: white !important;
+}
+
+/* Add other CSS rules for .compare-stats to make it look good with the new highlight class */
+.compare-stats .highlight {
+  /* existing styles */
+  transition: background-color 0.3s, color 0.3s;
+  /* Smooth transition for the background and text color change */
+  background-color: darkblue;
+  color: white;
 }
 
 .radar {
