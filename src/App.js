@@ -106,7 +106,7 @@ function App() {
 
   return (
     <div className="App">
-      <div className='header'><h1>Compare NBA Player Stats</h1></div>
+      <div className='header'><h1>🏀 Compare NBA Player Stats</h1></div>
       <div className='main'>
         <div className="player-selection-container">
           {[selectedPlayer1, selectedPlayer2].filter(Boolean).map((player, index) => (
@@ -233,7 +233,7 @@ function App() {
             <div className={`compare-stats ${selectedPlayer1.seasonAverages?.ft_pct > selectedPlayer2.seasonAverages?.ft_pct ? 'highlight' : ''}`}>
               <span className="player-position">{selectedPlayer1?.seasonAverages?.ft_pct ? (selectedPlayer1.seasonAverages?.ft_pct * 100).toFixed(0) + "%" : ""}</span>
             </div>
-            <div className='comparison-category'>3pt %</div>
+            <div className='comparison-category'>FT %</div>
             <div className={`compare-stats ${selectedPlayer2.seasonAverages?.ft_pct > selectedPlayer1.seasonAverages?.ft_pct ? 'highlight' : ''}`}>
               <span className="player-position">{selectedPlayer2?.seasonAverages?.ft_pct ? (selectedPlayer1.seasonAverages?.ft_pct * 100).toFixed(0) + "%" : ""}</span>
             </div>

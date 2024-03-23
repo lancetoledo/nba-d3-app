@@ -91,11 +91,11 @@
             "season": 2023
         },
         "percentileRanks": {
-            "points": 98,
-            "assists": 90.4,
-            "rebounds": 75.5,
-            "steals": 72.6,
-            "blocks": 65.1
+            "pts": 97,
+            "ast": 83.8,
+            "reb": 75.5,
+            "stl": 56.6,
+            "blk": 55.1
         }
     },
     {
@@ -190,11 +190,11 @@
             "season": 2023
         },
         "percentileRanks": {
-            "points": 98.56,
-            "assists": 93.44,
-            "rebounds": 86.78,
-            "steals": 82.33,
-            "blocks": 73.44
+            "pts": 95.56,
+            "ast": 93.44,
+            "reb": 86.78,
+            "stl": 70.33,
+            "blk": 73.44
         }
     },
     {
@@ -289,11 +289,11 @@
             "season": 2023
         },
         "percentileRanks": {
-            "points": 99.00,
-            "assists": 87.89,
-            "rebounds": 79.00,
-            "steals": 66.78,
-            "blocks": 55.67
+            "pts": 99.00,
+            "ast": 85.89,
+            "reb": 79.00,
+            "stl": 60.78,
+            "blk": 65.67
         }
     },
     {
@@ -388,11 +388,11 @@
             "season": 2023
         },
         "percentileRanks": {
-            "points": 99.44,
-            "assists": 86.78,
-            "rebounds": 94.56,
-            "steals": 91.22,
-            "blocks": 96.78
+            "pts": 99.44,
+            "ast": 90.78,
+            "reb": 94.56,
+            "stl": 58.92,
+            "blk": 64.78
         }
     },
     {
@@ -488,10 +488,10 @@
         },
         "percentileRanks": {
             "pts": 99.8,
-            "ast": 54.7,
+            "ast": 86.7,
             "reb": 96.7,
-            "stl": 55.8,
-            "blk": 100.0
+            "stl": 68.8,
+            "blk": 99.0
         }
     },
     {
@@ -586,11 +586,11 @@
             "season": 2023
         },
         "percentileRanks": {
-            "pts": 99.8,
-            "ast": 54.7,
-            "reb": 96.7,
+            "pts": 98.6,
+            "ast": 83.0,
+            "reb": 88.7,
             "stl": 55.8,
-            "blk": 100.0
+            "blk": 56.0
         }
     }
 ]
