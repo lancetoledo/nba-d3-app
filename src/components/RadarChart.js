@@ -210,7 +210,7 @@ const RadarChart = ({ data }) => {
         const radarDataPercentiles = playersWithSeasonAverages.map(player => ({
             name: player.name,
             axes: statsToShow.map(stat => {
-                const percentileRank = player.percentileRanks[stat] || 0; // Assuming you have percentile ranks data
+                const percentileRank = player?.percentileRanks[stat] || 0; // Assuming you have percentile ranks data
 
                 return {
                     axis: stat,

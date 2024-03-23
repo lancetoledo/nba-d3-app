@@ -1,4 +1,4 @@
-const staticPlayersData = [
+[
     {
         "idPlayer": "34160611",
         "idTeam": "134865",
@@ -91,12 +91,11 @@ const staticPlayersData = [
             "season": 2023
         },
         "percentileRanks": {
-            "points": 98, // 95th percentile for points
-            "assists": 90.4, // 90th percentile for assists
-            "rebounds": 75.5, // 75th percentile for rebounds
-            "steals": 72.6, // 88th percentile for steals
-            "blocks": 65.1 // 30th percentile for blocks
-            // ... other statistical categories
+            "points": 98,
+            "assists": 90.4,
+            "rebounds": 75.5,
+            "steals": 72.6,
+            "blocks": 65.1
         }
     },
     {
@@ -191,11 +190,11 @@ const staticPlayersData = [
             "season": 2023
         },
         "percentileRanks": {
-            "points": 98.56,   // 99th percentile for points
-            "assists": 93.44,  // 93rd percentile for assists
-            "rebounds": 86.78, // 87th percentile for rebounds
-            "steals": 82.33,   // 82nd percentile for steals
-            "blocks": 73.44    // 73rd percentile for blocks
+            "points": 98.56,
+            "assists": 93.44,
+            "rebounds": 86.78,
+            "steals": 82.33,
+            "blocks": 73.44
         }
     },
     {
@@ -290,11 +289,11 @@ const staticPlayersData = [
             "season": 2023
         },
         "percentileRanks": {
-            "points": 99.00,   // 99th percentile for points
-            "assists": 87.89,  // 88th percentile for assists
-            "rebounds": 79.00, // 79th percentile for rebounds
-            "steals": 66.78,   // 67th percentile for steals
-            "blocks": 55.67    // 56th percentile for blocks
+            "points": 99.00,
+            "assists": 87.89,
+            "rebounds": 79.00,
+            "steals": 66.78,
+            "blocks": 55.67
         }
     },
     {
@@ -389,11 +388,209 @@ const staticPlayersData = [
             "season": 2023
         },
         "percentileRanks": {
-            "points": 99.44,   // 99th percentile for points
-            "assists": 86.78,  // 87th percentile for assists
-            "rebounds": 94.56, // 95th percentile for rebounds
-            "steals": 91.22,   // 91st percentile for steals
-            "blocks": 96.78    // 97th percentile for blocks
+            "points": 99.44,
+            "assists": 86.78,
+            "rebounds": 94.56,
+            "steals": 91.22,
+            "blocks": 96.78
+        }
+    },
+    {
+        "idPlayer": "34162324",
+        "idTeam": "134863",
+        "idTeam2": "0",
+        "idTeamNational": null,
+        "idSoccerXML": null,
+        "idAPIfootball": null,
+        "idPlayerManager": null,
+        "idWikidata": null,
+        "strNationality": "Cameroon",
+        "strPlayer": "Joel Embiid",
+        "strPlayerAlternate": "",
+        "strTeam": "Philadelphia 76ers",
+        "strTeam2": "",
+        "strSport": "Basketball",
+        "intSoccerXMLTeamID": null,
+        "dateBorn": "1994-03-16",
+        "strNumber": "21",
+        "dateSigned": null,
+        "strSigning": "",
+        "strWage": "",
+        "strOutfitter": "",
+        "strKit": "",
+        "strAgent": "",
+        "strBirthLocation": "Yaoundé, Cameroon",
+        "strEthnicity": "",
+        "strStatus": "Active",
+        "strDescriptionEN": "Joel Hans Embiid (/dʒoʊˈɛl ɛmˈbiːd/ joh-EL em-BEED; born 16 March 1994) is a Cameroonian professional basketball player for the Philadelphia 76ers of the National Basketball Association (NBA), who also holds French and American citizenship. After one year of college basketball with the Kansas Jayhawks, he was drafted third overall by the 76ers in the 2014 NBA draft. Multiple foot and knee injuries delayed his debut for two seasons until 2016–17, when he was named to the NBA All-Rookie First Team despite playing only 31 games.\r\n\r\nEmbiid is a six-time NBA All-Star, a four-time member of the All-NBA Team and a three-time member of the All-Defensive Team. He has nicknamed himself \"the Process\" in response to a refrain from 76ers fans during the Sam Hinkie era to \"trust the process\". Embiid led the NBA in scoring during the 2021–22 season and 2022–23 season, becoming the first center and seven footer to do so since Shaquille O'Neal (2000), and was also the first center since Moses Malone (1982) to average over 30 points per game, while also being the first foreign player to lead the NBA in scoring. In 2023, Embiid won his first ever NBA Most Valuable Player Award.",
+        "strDescriptionDE": null,
+        "strDescriptionFR": null,
+        "strDescriptionCN": null,
+        "strDescriptionIT": null,
+        "strDescriptionJP": null,
+        "strDescriptionRU": null,
+        "strDescriptionES": null,
+        "strDescriptionPT": null,
+        "strDescriptionSE": null,
+        "strDescriptionNL": null,
+        "strDescriptionHU": null,
+        "strDescriptionNO": null,
+        "strDescriptionIL": null,
+        "strDescriptionPL": null,
+        "strGender": "Male",
+        "strSide": "",
+        "strPosition": "Center",
+        "strCollege": null,
+        "strFacebook": "",
+        "strWebsite": "",
+        "strTwitter": "",
+        "strInstagram": "",
+        "strYoutube": "",
+        "strHeight": "7 ft 0 in (2.13 m)",
+        "strWeight": "280 lb (127 kg)",
+        "intLoved": "0",
+        "strThumb": "https://www.thesportsdb.com/images/media/player/thumb/el4kug1520970407.jpg",
+        "strCutout": "https://www.thesportsdb.com/images/media/player/cutout/uzvosh1645222714.png",
+        "strRender": "https://www.thesportsdb.com/images/media/player/render/rbl50c1645222781.png",
+        "strBanner": null,
+        "strFanart1": null,
+        "strFanart2": null,
+        "strFanart3": null,
+        "strFanart4": null,
+        "strCreativeCommons": "No",
+        "strLocked": "unlocked",
+        "name": "Joel Embiid",
+        "image": "https://www.thesportsdb.com/images/media/player/cutout/uzvosh1645222714.png",
+        "id": 145,
+        "seasonAverages": {
+            "pts": 35.324,
+            "ast": 5.676,
+            "turnover": 3.706,
+            "pf": 2.882,
+            "fga": 22.147,
+            "fgm": 11.824,
+            "fta": 11.853,
+            "ftm": 10.471,
+            "fg3a": 3.294,
+            "fg3m": 1.206,
+            "reb": 11.235,
+            "oreb": 2.588,
+            "dreb": 8.647,
+            "stl": 1.147,
+            "blk": 1.794,
+            "fg_pct": 0.534,
+            "fg3_pct": 0.366,
+            "ft_pct": 0.883,
+            "min": "34:03",
+            "games_played": 34,
+            "player_id": 145,
+            "season": 2023
+        },
+        "percentileRanks": {
+            "pts": 99.8,
+            "ast": 54.7,
+            "reb": 96.7,
+            "stl": 55.8,
+            "blk": 100.0
+        }
+    },
+    {
+        "idPlayer": "34165277",
+        "idTeam": "134860",
+        "idTeam2": "136741",
+        "idTeamNational": null,
+        "idSoccerXML": null,
+        "idAPIfootball": null,
+        "idPlayerManager": null,
+        "idWikidata": null,
+        "strNationality": "United States",
+        "strPlayer": "Jayson Tatum",
+        "strPlayerAlternate": "",
+        "strTeam": "Boston Celtics",
+        "strTeam2": "United States Basketball",
+        "strSport": "Basketball",
+        "intSoccerXMLTeamID": null,
+        "dateBorn": "1998-03-03",
+        "strNumber": "0",
+        "dateSigned": null,
+        "strSigning": "",
+        "strWage": "",
+        "strOutfitter": "",
+        "strKit": "Air Jordan 34 Infrared",
+        "strAgent": "",
+        "strBirthLocation": "St. Louis, Missouri, USA",
+        "strEthnicity": "",
+        "strStatus": "Active",
+        "strDescriptionEN": "Jayson Christopher Tatum Sr. (/ˈteɪtʌm/; born March 3, 1998) is an American professional basketball player for the Boston Celtics of the National Basketball Association (NBA). A McDonald's All-American in high school in Missouri, he played college basketball for the Duke Blue Devils.\r\n\r\nTatum was selected with the third overall pick by the Boston Celtics in the 2017 NBA draft. A four-time NBA All-Star and two-time All-NBA selection, Tatum was named the NBA Eastern Conference Finals Most Valuable Player in 2022 and helped the Celtics reach the NBA Finals. He also won a gold medal on the 2020 U.S. Olympic team in Tokyo. He holds the record for most points scored in an NBA All-Star game, with 55.\r\n\r\nTatum is the son of Justin Tatum and Brandy Cole. Justin Tatum played basketball at Saint Louis University and is a gym teacher and basketball coach at Christian Brothers College High School in St. Louis, from which he graduated in 1997, approximately a year before Jayson's birth; Tatum's father was previously the coach and athletics director at Soldan International Studies High School for six years. Tatum was born when his parents were both 19-year-old undergraduates; his mother Brandy graduated from Saint Louis University School of Law and is now a practicing attorney in the St. Louis area. Tatum is the godson of former NBA player Larry Hughes, who was his father's high school and college teammate; he is also a cousin of former NBA player and current Los Angeles Clippers head coach Tyronn Lue.\r\n\r\nTatum is a Christian, crediting Jesus for his success and career.\r\n\r\nWhile in high school at Chaminade College Preparatory School, Tatum was good friends with future NHL forward Matthew Tkachuk of the Florida Panthers, as the two were placed in the same gym class. Tatum is also good friends with former Duke teammate and current NBA player Harry Giles.\r\n\r\nTatum's son, Deuce, was born on December 6, 2017.",
+        "strDescriptionDE": null,
+        "strDescriptionFR": null,
+        "strDescriptionCN": null,
+        "strDescriptionIT": null,
+        "strDescriptionJP": null,
+        "strDescriptionRU": null,
+        "strDescriptionES": null,
+        "strDescriptionPT": null,
+        "strDescriptionSE": null,
+        "strDescriptionNL": null,
+        "strDescriptionHU": null,
+        "strDescriptionNO": null,
+        "strDescriptionIL": null,
+        "strDescriptionPL": null,
+        "strGender": "Male",
+        "strSide": "",
+        "strPosition": "Small Forward",
+        "strCollege": null,
+        "strFacebook": "",
+        "strWebsite": "",
+        "strTwitter": "www.twitter.com/jaytatum0",
+        "strInstagram": "www.instagram.com/jaytatum0",
+        "strYoutube": "",
+        "strHeight": "203 cm",
+        "strWeight": "95 kg",
+        "intLoved": "0",
+        "strThumb": "https://www.thesportsdb.com/images/media/player/thumb/puthga1548646616.jpg",
+        "strCutout": "https://www.thesportsdb.com/images/media/player/cutout/j83lib1645307001.png",
+        "strRender": "https://www.thesportsdb.com/images/media/player/render/zydnd11628337345.png",
+        "strBanner": null,
+        "strFanart1": null,
+        "strFanart2": null,
+        "strFanart3": null,
+        "strFanart4": null,
+        "strCreativeCommons": "No",
+        "strLocked": "unlocked",
+        "name": "Jayson Tatum",
+        "image": "https://www.thesportsdb.com/images/media/player/cutout/j83lib1645307001.png",
+        "id": 434,
+        "seasonAverages": {
+            "pts": 27.123,
+            "ast": 4.892,
+            "turnover": 2.523,
+            "pf": 2.015,
+            "fga": 19.385,
+            "fgm": 9.185,
+            "fta": 6.677,
+            "ftm": 5.554,
+            "fg3a": 8.385,
+            "fg3m": 3.2,
+            "reb": 8.292,
+            "oreb": 0.862,
+            "dreb": 7.431,
+            "stl": 1.031,
+            "blk": 0.585,
+            "fg_pct": 0.474,
+            "fg3_pct": 0.382,
+            "ft_pct": 0.832,
+            "min": "35:44",
+            "games_played": 65,
+            "player_id": 434,
+            "season": 2023
+        },
+        "percentileRanks": {
+            "pts": 99.8,
+            "ast": 54.7,
+            "reb": 96.7,
+            "stl": 55.8,
+            "blk": 100.0
         }
     }
 ]

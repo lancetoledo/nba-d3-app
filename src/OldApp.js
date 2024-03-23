@@ -410,90 +410,90 @@ function App() {
     }
   ]
 
-  // useEffect(() => {
-  //   const fetchPlayerData = async () => {
-  //     const theSportsDBApiKey = "3";
-  //     const ballDontLieApiKey = "07bcd3e7-2f7c-4f6c-904b-4b835d67ccba";
-  //     const season = 2023;
-  //     const playerNames = ["Stephen Curry", "LeBron James", "Kevin Durant", "Giannis Antetokounmpo"];
-  //     // const topPlayerNames = [
-  //     //   "LeBron James",
-  //     //   "Kevin Durant",
-  //     //   "Giannis Antetokounmpo",
-  //     //   "Stephen Curry",
-  //     //   "Nikola Jokic",
-  //     //   "Joel Embiid",
-  //     //   "Luka Doncic",
-  //     //   "Kawhi Leonard",
-  //     //   "Anthony Davis",
-  //     //   "James Harden",
-  //     //   "Damian Lillard",
-  //     //   "Jayson Tatum",
-  //     //   "Jimmy Butler",
-  //     //   "Devin Booker",
-  //     //   "Chris Paul",
-  //     //   "Kyrie Irving",
-  //     //   "Russell Westbrook",
-  //     //   "Paul George",
-  //     //   "Karl-Anthony Towns",
-  //     //   "Bradley Beal",
-  //     //   "Donovan Mitchell",
-  //     //   "Zion Williamson",
-  //     //   "Trae Young",
-  //     //   "Ja Morant",
-  //     //   "Bam Adebayo"
-  //     // ]
+  useEffect(() => {
+    const fetchPlayerData = async () => {
+      const theSportsDBApiKey = "3";
+      const ballDontLieApiKey = "07bcd3e7-2f7c-4f6c-904b-4b835d67ccba";
+      const season = 2023;
+      const playerNames = ["Nikola Jokic", "Joel Embiid", "Luka Doncic", "Jayson Tatum"];
+      // const topPlayerNames = [
+      //   "LeBron James",
+      //   "Kevin Durant",
+      //   "Giannis Antetokounmpo",
+      //   "Stephen Curry",
+      //   "Nikola Jokic",
+      //   "Joel Embiid",
+      //   "Luka Doncic",
+      //   "Kawhi Leonard",
+      //   "Anthony Davis",
+      //   "James Harden",
+      //   "Damian Lillard",
+      //   "Jayson Tatum",
+      //   "Jimmy Butler",
+      //   "Devin Booker",
+      //   "Chris Paul",
+      //   "Kyrie Irving",
+      //   "Russell Westbrook",
+      //   "Paul George",
+      //   "Karl-Anthony Towns",
+      //   "Bradley Beal",
+      //   "Donovan Mitchell",
+      //   "Zion Williamson",
+      //   "Trae Young",
+      //   "Ja Morant",
+      //   "Bam Adebayo"
+      // ]
 
 
 
-  //     // First, fetch detailed player information including images from TheSportsDB
-  //     const playersWithImages = await Promise.all(playerNames.map(async (name) => {
-  //       const response = await fetch(`https://www.thesportsdb.com/api/v1/json/${theSportsDBApiKey}/searchplayers.php?p=${encodeURIComponent(name)}`);
-  //       const data = await response.json();
-  //       if (data.player && data.player.length > 0) {
-  //         return {
-  //           ...data.player[0],
-  //           name: data.player[0].strPlayer,
-  //           image: data.player[0].strCutout, // Assuming strCutout is the desired image property
-  //         };
-  //       }
-  //       return null;
-  //     }));
+      // First, fetch detailed player information including images from TheSportsDB
+      const playersWithImages = await Promise.all(playerNames.map(async (name) => {
+        const response = await fetch(`https://www.thesportsdb.com/api/v1/json/${theSportsDBApiKey}/searchplayers.php?p=${encodeURIComponent(name)}`);
+        const data = await response.json();
+        if (data.player && data.player.length > 0) {
+          return {
+            ...data.player[0],
+            name: data.player[0].strPlayer,
+            image: data.player[0].strCutout, // Assuming strCutout is the desired image property
+          };
+        }
+        return null;
+      }));
 
-  //     // Filter out null values (if any player wasn't found)
-  //     const validPlayersWithImages = playersWithImages.filter(Boolean);
+      // Filter out null values (if any player wasn't found)
+      const validPlayersWithImages = playersWithImages.filter(Boolean);
 
-  //     // Fetch player IDs and season averages from BallDontLlie API
-  //     const playerStats = await Promise.all(validPlayersWithImages.map(async (player) => {
-  //       // Fetch player ID
-  //       const playerResponse = await fetch(`https://api.balldontlie.io/v1/players?search=${player.strPlayer.split(" ")[1]}`, {
-  //         headers: { 'Authorization': ballDontLieApiKey }
-  //       });
-  //       const playerData = await playerResponse.json();
-  //       const playerDetails = playerData.data.find(p => `${p.first_name} ${p.last_name}` === player.strPlayer);
+      // Fetch player IDs and season averages from BallDontLlie API
+      const playerStats = await Promise.all(validPlayersWithImages.map(async (player) => {
+        // Fetch player ID
+        const playerResponse = await fetch(`https://api.balldontlie.io/v1/players?search=${player.strPlayer.split(" ")[1]}`, {
+          headers: { 'Authorization': ballDontLieApiKey }
+        });
+        const playerData = await playerResponse.json();
+        const playerDetails = playerData.data.find(p => `${p.first_name} ${p.last_name}` === player.strPlayer);
 
-  //       console.log(playerDetails, "PLAYER IDS!!")
+        console.log(playerDetails, "PLAYER IDS!!")
 
-  //       if (playerDetails) {
-  //         // Fetch season averages using player ID
-  //         const averagesResponse = await fetch(`https://api.balldontlie.io/v1/season_averages?season=${season}&player_ids[]=${playerDetails.id}`, {
-  //           headers: { 'Authorization': ballDontLieApiKey }
-  //         });
-  //         const averagesData = await averagesResponse.json();
-  //         return {
-  //           ...player,
-  //           id: playerDetails.id,
-  //           seasonAverages: averagesData.data[0] // Assumes there's only one set of averages per player
-  //         };
-  //       }
-  //       return player; // Return player details without stats if not found
-  //     }));
-  //     console.log(playerStats, "PLAYER STATS")
-  //     setPlayersData(playerStats);
-  //   };
+        if (playerDetails) {
+          // Fetch season averages using player ID
+          const averagesResponse = await fetch(`https://api.balldontlie.io/v1/season_averages?season=${season}&player_ids[]=${playerDetails.id}`, {
+            headers: { 'Authorization': ballDontLieApiKey }
+          });
+          const averagesData = await averagesResponse.json();
+          return {
+            ...player,
+            id: playerDetails.id,
+            seasonAverages: averagesData.data[0] // Assumes there's only one set of averages per player
+          };
+        }
+        return player; // Return player details without stats if not found
+      }));
+      console.log(playerStats, "PLAYER STATS")
+      setPlayersData(playerStats);
+    };
 
-  //   fetchPlayerData();
-  // }, []);
+    fetchPlayerData();
+  }, []);
 
   // console.log(playersData)
 
