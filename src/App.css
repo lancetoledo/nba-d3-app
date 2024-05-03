@@ -26,7 +26,7 @@
   background-color: var(--nba-dark-blue);
   height: 100%;
   width: 100%;
-  border-bottom: 5px solid var(--nba-red);
+  /* border-bottom: 5px solid var(--nba-red); */
   margin-bottom: 20px;
 }
 

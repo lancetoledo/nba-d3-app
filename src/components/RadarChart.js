@@ -3,7 +3,7 @@ import * as d3 from 'd3';
 
 const RadarChart = ({ data }) => {
 
-    // console.log(data, "RADAR")
+    console.log(data, "RADAR")
     const chartRef = useRef(null);
 
     useEffect(() => {

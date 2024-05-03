@@ -415,7 +415,7 @@ function App() {
       const theSportsDBApiKey = "3";
       const ballDontLieApiKey = "07bcd3e7-2f7c-4f6c-904b-4b835d67ccba";
       const season = 2023;
-      const playerNames = ["Nikola Jokic", "Joel Embiid", "Luka Doncic", "Jayson Tatum"];
+      const playerNames = ["Lebron James", "Joel Embiid", "Steph Curry", "Jayson Tatum"];
       // const topPlayerNames = [
       //   "LeBron James",
       //   "Kevin Durant",
